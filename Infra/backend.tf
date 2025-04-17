@@ -4,6 +4,6 @@ terraform{
     key            = "terraform/two-tier"
     region         = "us-west-1"
     encrypt        = true
-    dynamodb_table = "Dynamodb-lock"
+    #dynamodb_table = "Dynamodb-lock"
   }
 }
