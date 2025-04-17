@@ -33,7 +33,7 @@ No resources.
 | <a name="input_db_name"></a> [db\_name](#input\_db\_name) | Database name | `string` | n/a | yes |
 | <a name="input_db_name_prefix"></a> [db\_name\_prefix](#input\_db\_name\_prefix) | Name prefix for database | `string` | n/a | yes |
 | <a name="input_db_password"></a> [db\_password](#input\_db\_password) | Database password. | `string` | n/a | yes |
-| <a name="input_db_username"></a> [db\_username](#input\_db\_username) | Database username | `string` | n/a | yes |
+| <a name="input_db_username"></a> [db\_username](#input\_db\_username) | Database username. | `string` | n/a | yes |
 | <a name="input_private_subnets"></a> [private\_subnets](#input\_private\_subnets) | Private subnets | `list(string)` | n/a | yes |
 | <a name="input_public_subnets"></a> [public\_subnets](#input\_public\_subnets) | Public subnets | `list(string)` | n/a | yes |
 | <a name="input_sg_name_prefix"></a> [sg\_name\_prefix](#input\_sg\_name\_prefix) | Name prefix for security groups | `string` | n/a | yes |
@@ -41,7 +41,7 @@ No resources.
 | <a name="input_vpc_name"></a> [vpc\_name](#input\_vpc\_name) | Name of the VPC | `string` | n/a | yes |
 | <a name="input_web_ami_id"></a> [web\_ami\_id](#input\_web\_ami\_id) | AMI ID for web servers | `string` | n/a | yes |
 | <a name="input_web_instance_count"></a> [web\_instance\_count](#input\_web\_instance\_count) | Number of web server instances | `number` | `2` | no |
-| <a name="input_web_instance_type"></a> [web\_instance\_type](#input\_web\_instance\_type) | Instance type for web servers | `string` | n/a | yes |
+| <a name="input_web_instance_type"></a> [web\_instance\_type](#input\_web\_instance\_type) | Instance type for web servers | `string` | `"t2.micro"` | no |
 | <a name="input_web_name_prefix"></a> [web\_name\_prefix](#input\_web\_name\_prefix) | Name prefix for web servers | `string` | n/a | yes |
 
 ## Outputs
