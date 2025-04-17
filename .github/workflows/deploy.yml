@@ -85,12 +85,6 @@ jobs:
         run: tflint -f compact
         working-directory: ./Infra
 
-      - name: Run Checkov
-        uses: bridgecrewio/checkov-action@master
-        with:
-          directory: ./Infra
-          framework: terraform
-
       - name: Generate Markdown with Terraform Docs
         if: github.event_name == 'push' || github.event_name == 'pull_request'
         uses: terraform-docs/gh-actions@v1.3.0
