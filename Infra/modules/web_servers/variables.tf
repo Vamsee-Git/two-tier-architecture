@@ -28,3 +28,8 @@ variable "name" {
   description = "Name prefix for web servers"
   type        = string
 }
+
+variable "user_data" {
+  description = "List of user data scripts"
+  type        = list(string)
+}
