@@ -47,6 +47,7 @@ variable "web_ami_id" {
 variable "web_instance_type" {
   description = "Instance type for web servers"
   type        = string
+  default     = "t2.mini"
 }
 
 variable "db_name_prefix" {
