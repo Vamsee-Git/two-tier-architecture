@@ -1,40 +1,38 @@
 module "vpc" {
   source = "./modules/vpc"
 
-  name            = "my-vpc"
-  cidr_block      = "10.0.0.0/16"
-  azs             = ["us-east-1a", "us-east-1b"]
-  public_subnets  = ["10.0.1.0/24", "10.0.2.0/24"]
-  private_subnets = ["10.0.3.0/24", "10.0.4.0/24"]
+  name            = var.vpc_name
+  cidr_block      = var.vpc_cidr_block
+  azs             = var.availability_zones
+  public_subnets  = var.public_subnets
+  private_subnets = var.private_subnets
 }
 
 module "security_groups" {
   source          = "./modules/security_groups"
-  name            = "my"
+  name            = var.sg_name_prefix
   vpc_id          = module.vpc.vpc_id
   web_subnet_cidrs = module.vpc.public_subnets
 }
 
 module "web_servers" {
   source         = "./modules/web_servers"
-  name           = "my-web"
-  instance_count = 2
-  ami_id         = "ami-0c55b159cbfafe1f0" # Example AMI
-  instance_type  = "t2.micro"
+  name           = var.web_name_prefix
+  instance_count = var.web_instance_count
+  ami_id         = var.web_ami_id
+  instance_type  = var.web_instance_type
   subnets        = module.vpc.public_subnets
-  vpc_id         = module.vpc.vpc_id
-  security_group = module.security_groups.web_sg.id
+  security_group = module.security_groups.web_sg_id
 }
 
 module "database" {
   source          = "./modules/database"
-  name            = "my-db"
-  instance_class  = "db.t2.micro"
-  allocated_storage = 20
-  db_name         = "mydb"
-  db_username     = "admin"
-  db_password     = "password"
+  name            = var.db_name_prefix
+  instance_class  = var.db_instance_class
+  allocated_storage = var.db_allocated_storage
+  db_name         = var.db_name
+  db_username     = var.db_username
+  db_password     = var.db_password
   subnets         = module.vpc.private_subnets
-  vpc_id          = module.vpc.vpc_id
-  security_group  = module.security_groups.db_sg.id
+  security_group  = module.security_groups.db_sg_id
 }
