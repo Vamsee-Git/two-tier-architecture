@@ -71,7 +71,7 @@ variable "db_name" {
 }
 
 variable "db_username" {
-  description = "Database username"
+  description = "Database username."
   type        = string
 }
 
