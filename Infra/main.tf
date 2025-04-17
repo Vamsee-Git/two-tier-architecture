@@ -36,6 +36,10 @@ module "web_servers" {
   instance_type  = var.web_instance_type
   subnets        = module.vpc.public_subnets
   security_group = module.security_groups.web_sg_id
+  user_data         = [
+    file("${path.module}/user_data/user_data_1.sh"),
+    file("${path.module}/user_data/user_data_2.sh"),
+  ]
 }
 
 module "database" {
