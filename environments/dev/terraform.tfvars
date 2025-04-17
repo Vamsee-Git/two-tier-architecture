@@ -9,7 +9,6 @@ sg_name_prefix      = "my"
 web_name_prefix     = "my-web"
 web_instance_count  = 2
 web_ami_id          = "ami-087f352c165340ea1" # Example AMI
-web_instance_type   = "t3.mini"
 
 db_name_prefix      = "my-db"
 db_instance_class   = "db.t3.micro"
