@@ -32,43 +32,36 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref || github.ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # Step 2: Install Git LFS
       - name: Install Git LFS
         run: |
           git lfs install
 
-      # Step 3: Track Large Files with Git LF
       - name: Track Large Files with Git LFS
         run: |
           git lfs track "Infra/.terraform/providers/registry.terraform.io/hashicorp/aws/5.87.0/linux_amd64/terraform-provider-aws_v5.87.0_x5"
-          git add .gitattributes  # Make sure to add the .gitattributes file that git-lfs uses
+          git add .gitattributes
 
-      # Step 4: Commit Changes (If Needed)
       - name: Commit Changes (if any)
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git commit -m "Add Terraform provider binary to Git LFS" || echo "No changes to commit"
 
-      # Step 5: Push Changes to GitHub
       - name: Push Changes
         run: |
           git push origin ${{ github.event.pull_request.head.ref || github.ref }}
 
-      # Step 6: Configure AWS Credentials
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: arn:aws:iam::877786395093:role/github-oidc-vamsee
           aws-region: us-west-2
 
-      # Step 7: Setup Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.11.0
 
-      # Step 8: Terraform Init & Plan
       - name: Terraform Init
         run: terraform init -reconfigure
         working-directory: ./Infra
@@ -77,7 +70,6 @@ jobs:
         run: terraform plan -var-file="../environments/dev/terraform.tfvars" -out=tfplan
         working-directory: ./Infra
 
-      # Step 9: Generate Terraform Docs Markdown
       - name: Generate Markdown with Terraform Docs
         if: github.event_name == 'push' || github.event_name == 'pull_request'
         uses: terraform-docs/gh-actions@v1.3.0
@@ -90,13 +82,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Step 10: Configure Git to Commit Generated Docs
       - name: Configure Git
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-      # Step 11: Add README.md as PR Comment (Using Sticky Comment)
       - name: Posting README.md as PR Comment
         if: github.event_name == 'pull_request'
         uses: marocchino/sticky-pull-request-comment@v2.9.0
@@ -105,10 +95,9 @@ jobs:
           header: "Terraform Documentation "
           path: "./Infra/README.md"
 
-      # Step 12: Apply Terraform Changes on PR Merge
       - name: Applying Terraform after PR Merge
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           cd ./Infra
           terraform init
-          terraform apply -auto-approve -var-file="../environments/dev/terraform.tfvars" -out=tfplan
+          terraform apply -auto-approve -var-file="../environments/dev/terraform.tfvars"
