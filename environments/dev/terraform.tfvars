@@ -8,7 +8,7 @@ sg_name_prefix      = "my"
 
 web_name_prefix     = "my-web"
 web_instance_count  = 2
-web_ami_id          = "ami-0c55b159cbfafe1f0" # Example AMI
+web_ami_id          = "ami-087f352c165340ea1" # Example AMI
 web_instance_type   = "t2.micro"
 
 db_name_prefix      = "my-db"
