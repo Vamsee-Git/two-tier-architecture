@@ -62,4 +62,4 @@ jobs:
       - name: Terraform Destroy
         run: |
           cd ./Infra
-          terraform destroy -auto-approve
+          terraform destroy -auto-approve -var-file="../environments/dev/terraform.tfvars"
