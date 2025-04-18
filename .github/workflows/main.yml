@@ -54,7 +54,12 @@ jobs:
           terraform_version: 1.11.0
 
       - name: Terraform Init
-        run: terraform init -reconfigure
+        run: |
+          cd ./Infra
+          terraform init -reconfigure
+        
 
       - name: Terraform Destroy
-        run: terraform destroy -auto-approve
+        run: |
+          cd ./Infra
+          terraform destroy -auto-approve
